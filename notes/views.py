@@ -48,3 +48,10 @@ def search(request):
     if query:
         results = Note.objects.filter(creator=request.user, name__icontains=query)
     return render(request, "notes/search.html", {"notes": results, "query": query})
+
+@login_required
+def delete(request, note_id):
+    if request.method == "POST":
+        note = get_object_or_404(Note, creator=request.user, id=note_id)
+        note.delete()
+    return redirect("notes")

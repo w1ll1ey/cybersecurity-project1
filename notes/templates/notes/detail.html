@@ -6,6 +6,11 @@
 <p>{{ note.name }}</p>
 <p>{{ note.content }}</p>
 
+<form method="post" action="{% url 'delete' note.id %}">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+</form>
+
 <p><a href="/">Back to list</a></p>
 
 <p><a href="create">Create note</a></p>
