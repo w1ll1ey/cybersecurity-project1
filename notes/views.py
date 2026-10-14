@@ -40,3 +40,11 @@ def create(request):
 def detail(request, note_id):
     note = get_object_or_404(Note, creator=request.user, id=note_id)
     return render(request, "notes/detail.html", {"note": note})
+
+@login_required
+def search(request):
+    results = []
+    query = request.GET.get("q", "")
+    if query:
+        results = Note.objects.filter(creator=request.user, name__icontains=query)
+    return render(request, "notes/search.html", {"notes": results, "query": query})

@@ -3,6 +3,8 @@
     <button type="submit">Logout</button>
 </form>
 
+<p><a href="search">Search for notes</a></p>
+
 {% for note in notes %}
 
 <p><a href="{% url 'note_id' note.id %}">{{ note.name }}</a></p>
