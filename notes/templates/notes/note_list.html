@@ -3,4 +3,13 @@
     <button type="submit">Logout</button>
 </form>
 
-The notes will land here.
+{% for note in notes %}
+
+<p>{{ note.name }}</p>
+
+{% empty %}
+No notes.
+
+{% endfor %}
+
+<p><a href="create">Create note</a></p>

@@ -5,9 +5,10 @@ from django.contrib.auth import login
 from .forms import NoteForm
 from django.contrib.auth.decorators import login_required
 
+@login_required
 def notes(request):
-    
-    return render(request, "notes/note_list.html", {})
+    context = Note.objects.filter(creator=request.user)
+    return render(request, "notes/note_list.html", {"notes": context})
 
 def registration(request):
     if request.method == "POST":
