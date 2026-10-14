@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Note
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
@@ -35,3 +35,8 @@ def create(request):
     else:
         form = NoteForm()
     return render(request, "notes/create.html", {"form": form})
+
+@login_required
+def detail(request, note_id):
+    note = get_object_or_404(Note, creator=request.user, id=note_id)
+    return render(request, "notes/detail.html", {"note": note})
