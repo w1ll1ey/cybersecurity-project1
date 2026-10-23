@@ -36,10 +36,19 @@ def create(request):
         form = NoteForm()
     return render(request, "notes/create.html", {"form": form})
 
+# FLAW 1: BROKEN ACCESS CONTROL (A01, 2021)
+
 @login_required
 def detail(request, note_id):
-    note = get_object_or_404(Note, creator=request.user, id=note_id)
-    return render(request, "notes/detail.html", {"note": note})
+   note = get_object_or_404(Note, id=note_id)
+   return render(request, "notes/detail.html", {"note": note})
+
+# FIX 1: FILTER BY CREATOR
+
+# @login_required
+# def detail(request, note_id):
+#    note = get_object_or_404(Note, creator=request.user, id=note_id)
+#    return render(request, "notes/detail.html", {"note": note})
 
 @login_required
 def search(request):
