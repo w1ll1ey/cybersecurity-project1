@@ -50,13 +50,25 @@ def detail(request, note_id):
 #    note = get_object_or_404(Note, creator=request.user, id=note_id)
 #    return render(request, "notes/detail.html", {"note": note})
 
+# FLAW 3: INJECTION (A03, 2021)
+
 @login_required
 def search(request):
     results = []
     query = request.GET.get("q", "")
     if query:
-        results = Note.objects.filter(creator=request.user, name__icontains=query)
+        results = Note.objects.raw(f"SELECT * FROM notes_note WHERE creator_id = {request.user.id} AND NAME LIKE '%%{query}%%'")
     return render(request, "notes/search.html", {"notes": results, "query": query})
+
+# FIX 3: DON'T BYPASS DJANGO'S ORM
+
+# @login_required
+# def search(request):
+#     results = []
+#     query = request.GET.get("q", "")
+#     if query:
+#         results = Note.objects.filter(creator=request.user, name__icontains=query)
+#     return render(request, "notes/search.html", {"notes": results, "query": query})
 
 @login_required
 def delete(request, note_id):
