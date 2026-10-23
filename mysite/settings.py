@@ -120,3 +120,11 @@ STATIC_URL = 'static/'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
+
+# FLAW 2: CRYPTOGRAPHIC FAILURES (A02, 2021)
+
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.MD5PasswordHasher"
+]
+
+# FIX 2: comment out PASSWORD_HASHERS above to fall back on Django's default, which is PBKDF2
