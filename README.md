@@ -25,6 +25,8 @@ Note on FLAW 2: `python3 manage.py seed` needs to be rerun after turning the fla
 1. Install Python version 3.12 or later
 2. Run the following commands in the repository folder containing manage.py:
    ```
+   python3 -m venv venv
+   source venv/bin/activate
    python3 -m pip install -r requirements.txt
    python3 manage.py migrate
    python3 manage.py seed
@@ -32,7 +34,7 @@ Note on FLAW 2: `python3 manage.py seed` needs to be rerun after turning the fla
    ```
 3. Open http://127.0.0.1:8000/
 
-(note: on Windows, python3 might need to be replaced by python or py)
+(note: on Windows, python3 might need to be replaced by python or py and source venv/bin/activate by venv\Scripts\activate)
 
 Demo users:
 
