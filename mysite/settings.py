@@ -134,3 +134,32 @@ PASSWORD_HASHERS = [
 ]
 
 # FIX 2: comment out PASSWORD_HASHERS above to fall back on Django's default, which is PBKDF2
+
+# FLAW 5: SECURITY LOGGING AND MONITORING FAILURES (A09, 2021) (missing logging of failed logins)
+
+# FIX 5: uncomment the code below and FIX 5 block in views.py to create a logger for failed logins
+
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "formatters": {
+#         "simple": {
+#             "format": "{asctime} {levelname} {message}",
+#             "style": "{"
+#         }
+#     },
+#     "handlers": {
+#         "console": {
+#             "class": "logging.StreamHandler",
+#             "formatter": "simple",
+#             "level": "WARNING"
+#         }
+#     },
+#     "loggers": {
+#         "security": {
+#             "handlers": ["console"],
+#             "level": "WARNING",
+#             "propagate": False
+#         }
+#     }
+# }
